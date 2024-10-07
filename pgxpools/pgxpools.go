@@ -16,16 +16,17 @@ type ConfigConnectPgxPool struct {
 	User     string
 	Password string
 	Name     string
+	SSLMode  string
 }
 
 func ConnectDB(configObj *ConfigConnectPgxPool) *pgxpool.Pool {
 	logrus.Info("🟨 ConnectDB")
-	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		configObj.Host,
 		configObj.Port,
 		configObj.User,
 		configObj.Password,
-		configObj.Name)
+		configObj.Name, configObj.SSLMode)
 
 	configDB, err := pgxpool.ParseConfig(connStr)
 	if err != nil {

@@ -37,7 +37,7 @@ func SetupRouter() *chi.Mux {
 	router.Use(middleware.Timeout(60 * time.Second))
 
 	router.Use(func(next http.Handler) http.Handler {
-		return utils.JWTMiddleware(next, []byte(cfg.JWT.SecretKey), []string{"/login", "/register"})
+		return utils.JWTMiddleware(next, []byte(cfg.JWT.SecretKey), []string{"/api/login", "/api/register"})
 	})
 	return router
 }

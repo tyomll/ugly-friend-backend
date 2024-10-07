@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"ugly-friend/config"
 	"ugly-friend/models"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -77,17 +78,22 @@ func validateJWT(tokenString string, secretKey []byte) (*jwt.MapClaims, error) {
 	return claims, nil
 }
 
-func GenerateJWT(telegramID int64, secretKey string, issuer string) (string, error) {
+func GenerateJWT() (string, error) {
+	cfg, err := config.MustLoad()
+	if err != nil {
+		return "", fmt.Errorf("failed to load config: %w", err)
+	}
+
 	claims := &models.Claims{
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 30)), // Token is valid for 30 days
-			Issuer:    issuer,
+			Issuer:    cfg.JWT.Issuer,
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	secretKeyBytes := []byte(secretKey)
+	secretKeyBytes := []byte(cfg.JWT.SecretKey)
 
 	tokenString, err := token.SignedString(secretKeyBytes)
 	if err != nil {

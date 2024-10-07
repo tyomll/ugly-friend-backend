@@ -21,6 +21,6 @@ type User struct {
 	ID          uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4()"`
 	Username    string    `gorm:"not null" json:"username"`
 	Password    string    `gorm:"not null" json:"password"`
-	CardNumbers *[]uint
-	TotalDebts  uint
+	CardNumbers []uint    `gorm:"type:integer[]"`
+	TotalDebts  *uint     `gorm:"not null" json:"total_debts"`
 }

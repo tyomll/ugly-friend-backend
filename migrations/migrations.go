@@ -11,6 +11,11 @@ import (
 func MigrateTables(db *gorm.DB, log *slog.Logger) error {
 	log.Info("🔍 Initialize db migration...")
 
+	if err := db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"").Error; err != nil {
+		log.Error("💔 Failed to enable uuid-ossp extension", slog.String("error", err.Error()))
+		return err
+	}
+
 	modelsToMigrate := []interface{}{
 		&models.User{},
 		&models.Debt{},

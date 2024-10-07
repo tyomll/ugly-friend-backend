@@ -11,3 +11,4 @@ server:
   port: # Server port
 jwt:
   secret_key: # JWT secret key
+  issuer: # JWT issuer

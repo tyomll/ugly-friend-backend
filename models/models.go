@@ -24,11 +24,8 @@ type CreateUserReq struct {
 }
 
 type CreateUserRes struct {
-	ID          uuid.UUID
-	Username    string
-	Password    string
-	CardNumbers *[]uint
-	TotalDebts  uint
+	Token     string
+	ExpiresAt string
 }
 
 type LoginUserReq struct {
@@ -37,5 +34,6 @@ type LoginUserReq struct {
 }
 
 type LoginUserRes struct {
-	AccessToken string
+	Token     string
+	ExpiresAt string
 }

@@ -49,6 +49,7 @@ func InitCore(storage *config.Storage) *UglyFriendCore {
 		User:     storage.Username,
 		Password: storage.Password,
 		Name:     storage.DBName,
+		SSLMode:  storage.SSLMode,
 	})
 
 	methods := repository.NewRepository(pool)
