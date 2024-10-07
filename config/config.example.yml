@@ -1,0 +1,13 @@
+deploy: # Deployment environment, can be 'local', 'staging', or 'production'
+storage:
+  host: # Database host, e.g., 'localhost' or a remote server IP
+  port: # Database port, default for PostgreSQL is 5432
+  dbname: # Name of the database being used
+  username: # Username for connecting to the database
+  password: # Password for the database connection
+  ssl: # SSL mode for the database connection, options are 'disable', 'require', 'verify-ca', etc.
+server:
+  bind: # Server binding
+  port: # Server port
+jwt:
+  secret_key: # JWT secret key
